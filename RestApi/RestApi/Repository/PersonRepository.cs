@@ -1,15 +1,18 @@
 ﻿using RestApi.Data;
 using RestApi.Models;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
-namespace RestApi.Services
+namespace RestApi.Repository
 {
-    public class PersonService : ServiceBase
+    public class PersonRepository
     {
-        public PersonService(Context context) : base(context) { }
+        private readonly Context _context;
+
+        public PersonRepository(Context context)
+        {
+            _context = context;
+        }
 
         public Person FindById(long id)
         {
@@ -37,7 +40,7 @@ namespace RestApi.Services
         
         public Person Update(Person person)
         {
-            if(!PersonExists(person.Id)) return new Person();
+            if(!Exists(person.Id)) return new Person();
 
             var result = _context.People.SingleOrDefault(p => p.Id == person.Id);
             if(result == null) return new Person();
@@ -54,7 +57,7 @@ namespace RestApi.Services
 
         public void Delete(long id)
         {
-            if (!PersonExists(id)) return;
+            if (!Exists(id)) return;
 
             var result = _context.People.SingleOrDefault(p => p.Id == id);
             if (result == null) return;
@@ -67,7 +70,7 @@ namespace RestApi.Services
             catch { throw; }
         }
 
-        private bool PersonExists(long id)
+        public bool Exists(long id)
         {
             return _context.People.Any(p => p.Id == id);
         }

@@ -6,7 +6,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using RestApi.Data;
-using RestApi.Services;
+using RestApi.Business;
+using RestApi.Repository;
 
 namespace RestApi
 {
@@ -34,7 +35,8 @@ namespace RestApi
 
             services.AddApiVersioning();
 
-            services.AddScoped<PersonService>();
+            services.AddScoped<PersonBusiness>();
+            services.AddScoped<PersonRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

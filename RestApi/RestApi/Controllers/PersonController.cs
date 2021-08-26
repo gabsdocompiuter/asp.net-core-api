@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using RestApi.Models;
-using RestApi.Services;
+using RestApi.Business;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -16,24 +16,24 @@ namespace RestApi.Controllers
     public class PersonController : ControllerBase
     {
         private readonly ILogger<PersonController> _logger;
-        private readonly PersonService _personService;
+        private readonly PersonBusiness _personBusiness;
 
-        public PersonController(ILogger<PersonController> logger, PersonService personService)
+        public PersonController(ILogger<PersonController> logger, PersonBusiness personBusiness)
         {
             _logger = logger;
-            _personService = personService;
+            _personBusiness = personBusiness;
         }
 
         [HttpGet]
         public IActionResult GetAll()
         {
-            return Ok(_personService.FindAll());
+            return Ok(_personBusiness.FindAll());
         }
 
         [HttpGet("{id}")]
         public IActionResult FindById(long id)
         {
-            var person = _personService.FindById(id);
+            var person = _personBusiness.FindById(id);
             if (person == null) return NotFound();
 
             return Ok(person);
@@ -44,7 +44,7 @@ namespace RestApi.Controllers
         {
             if (person == null) return BadRequest();
 
-            return Ok(_personService.Create(person));
+            return Ok(_personBusiness.Create(person));
         }
 
         [HttpPut]
@@ -52,13 +52,13 @@ namespace RestApi.Controllers
         {
             if (person == null) return BadRequest();
 
-            return Ok(_personService.Update(person));
+            return Ok(_personBusiness.Update(person));
         }                   
 
         [HttpDelete("{id}")]
         public IActionResult Delete(long id)
         {
-            _personService.Delete(id);
+            _personBusiness.Delete(id);
             return NoContent();
         }
     }
