@@ -40,7 +40,7 @@ namespace RestApi.Repository
         
         public Person Update(Person person)
         {
-            if(!Exists(person.Id)) return new Person();
+            if(!Exists(person.Id)) return null;
 
             var result = _context.People.SingleOrDefault(p => p.Id == person.Id);
             if(result == null) return new Person();
