@@ -32,6 +32,8 @@ namespace RestApi
             var connection = Configuration["AzureConnection:connectionString"];
             services.AddDbContext<Context>(options => options.UseSqlServer(connection));
 
+            services.AddApiVersioning();
+
             services.AddScoped<PersonService>();
         }
 
