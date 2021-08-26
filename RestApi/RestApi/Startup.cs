@@ -8,22 +8,27 @@ using Microsoft.OpenApi.Models;
 using RestApi.Data;
 using RestApi.Business;
 using RestApi.Repository;
+using Serilog;
+using System;
 
 namespace RestApi
 {
     public class Startup
     {
+        public IConfiguration Configuration { get; }
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
-        }
 
-        public IConfiguration Configuration { get; }
+            Log.Logger = new LoggerConfiguration()
+                .WriteTo.Console()
+                .CreateLogger();
+        }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
