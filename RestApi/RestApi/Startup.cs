@@ -42,6 +42,8 @@ namespace RestApi
 
             services.AddScoped<PersonBusiness>();
             services.AddScoped<PersonRepository>();
+            services.AddScoped<BookBusiness>();
+            services.AddScoped<BookRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
