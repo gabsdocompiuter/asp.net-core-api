@@ -8,8 +8,8 @@ namespace RestApi.Business
 {
     public class PersonBusiness
     {
-        private readonly PersonRepository _repository;
-        public PersonBusiness(PersonRepository repository)
+        private readonly Repository<Person> _repository;
+        public PersonBusiness(Repository<Person> repository)
         {
             _repository = repository;
         }

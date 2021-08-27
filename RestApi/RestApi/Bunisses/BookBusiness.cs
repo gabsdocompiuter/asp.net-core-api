@@ -6,8 +6,8 @@ namespace RestApi.Business
 {
     public class BookBusiness
     {
-        private readonly BookRepository _repository;
-        public BookBusiness(BookRepository repository)
+        private readonly Repository<Book> _repository;
+        public BookBusiness(Repository<Book> repository)
         {
             _repository = repository;
         }
