@@ -1,5 +1,7 @@
-﻿using RestApi.Models;
+﻿using RestApi.Data.Converter;
+using RestApi.Models;
 using RestApi.Repository;
+using RestApi.ValueObjects;
 using System.Collections.Generic;
 
 namespace RestApi.Business
@@ -7,29 +9,38 @@ namespace RestApi.Business
     public class BookBusiness
     {
         private readonly Repository<Book> _repository;
+        private readonly BookConverter _converter;
+
         public BookBusiness(Repository<Book> repository)
         {
             _repository = repository;
+            _converter = new BookConverter();
         }
 
-        public Book FindById(long id)
+        public BookVO FindById(long id)
         {
-            return _repository.FindById(id);
+            return _converter.Parse(_repository.FindById(id));
         }
 
-        public List<Book> FindAll()
+        public List<BookVO> FindAll()
         {
-            return _repository.FindAll();
+            return _converter.Parse(_repository.FindAll());
         }
 
-        public Book Create(Book Book)
+        public BookVO Create(BookVO book)
         {
-            return _repository.Create(Book);
+            var bookEntity = _converter.Parse(book);
+            bookEntity = _repository.Create(bookEntity);
+
+            return _converter.Parse(bookEntity);
         }
         
-        public Book Update(Book Book)
+        public BookVO Update(BookVO book)
         {
-            return _repository.Update(Book);
+            var bookEntity = _converter.Parse(book);
+            bookEntity = _repository.Update(bookEntity);
+
+            return _converter.Parse(bookEntity);
         }
 
         public void Delete(long id)

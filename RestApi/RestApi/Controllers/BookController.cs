@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using RestApi.Models;
 using RestApi.Business;
+using RestApi.ValueObjects;
 
 namespace RestApi.Controllers
 {
@@ -35,7 +35,7 @@ namespace RestApi.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create([FromBody] Book book)
+        public IActionResult Create([FromBody] BookVO book)
         {
             if (book == null) return BadRequest();
 
@@ -43,7 +43,7 @@ namespace RestApi.Controllers
         }
 
         [HttpPut]
-        public IActionResult Update([FromBody] Book book)
+        public IActionResult Update([FromBody] BookVO book)
         {
             if (book == null) return BadRequest();
 

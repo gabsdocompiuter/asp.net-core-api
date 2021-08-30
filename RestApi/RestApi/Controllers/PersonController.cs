@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Logging;
 using RestApi.Models;
 using RestApi.Business;
+using RestApi.ValueObjects;
 
 namespace RestApi.Controllers
 {
@@ -35,7 +36,7 @@ namespace RestApi.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create([FromBody] Person person)
+        public IActionResult Create([FromBody] PersonVO person)
         {
             if (person == null) return BadRequest();
 
@@ -43,7 +44,7 @@ namespace RestApi.Controllers
         }
 
         [HttpPut]
-        public IActionResult Update([FromBody] Person person)
+        public IActionResult Update([FromBody] PersonVO person)
         {
             if (person == null) return BadRequest();
 
